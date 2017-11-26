@@ -1,4 +1,4 @@
-"iid","gender","wave_iid","pid_iid","match_iid","samerace_iid","age_self_iid","wave_pid","pid_pid","match_pid","samerace_pid","age_self_pid","age_part","race_part","pref_part_att","pref_part_sin","pre_part_int","pre_part_fun","pre_part_amb","pre_part_sha","dec_part","part_att","part_sin","part_int","part_fun","part_amb","part_sha","part_lik","part_prob","part_met","age_self"
+"iid","pid","gender.iid","wave.iid","match.iid","samerace.iid","age_self.iid","gender.pid","wave.pid","match.pid","samerace.pid","age_self.pid","age_part","race_part","pref_part_att","pref_part_sin","pre_part_int","pre_part_fun","pre_part_amb","pre_part_sha","dec_part","part_att","part_sin","part_int","part_fun","part_amb","part_sha","part_lik","part_prob","part_met","age_self"
 1,11,0,1,0,0,21,1,1,0,0,27,6,-2,20,0,0,5,-15,-10,-1,0,-1,1,1,2,1,0,-2,0,-6
 1,12,0,1,0,0,21,1,1,0,0,22,1,-2,45,-20,-20,25,-15,-15,-1,0,0,3,-1,2,-1,1,-1,1,-1
 1,13,0,1,1,1,21,1,1,1,1,22,1,0,4,-2,-1,3,-1,-3,0,5,2,1,2,5,3,3,NA,0,-1

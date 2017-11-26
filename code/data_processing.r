@@ -8,10 +8,10 @@ setwd(CUR_DIC)
 DATA_DIC = paste(PARENT_DIC, "/data/", sep="")
 RAW_DATA = paste(DATA_DIC, "speed_dating_data.csv", sep="")
 FEATURE_DATA = paste(DATA_DIC, "feature_select.csv", sep="")
-WAVE_LIST = c(1, 2, 3, 4, 10, 15, 16, 17)
+WAVE_LIST = c(1, 2, 3)
 DATE = c(strsplit(as.character(Sys.time()), split=" ")[[1]][1], 
 	strsplit(strsplit(as.character(Sys.time()), split=" ")[[1]][2], split=":")[[1]])
-MARK = "Basic_Feature_"
+MARK = "TEST_"
 LABEL = paste("wave", paste(WAVE_LIST, collapse="_"), paste(DATE, collapse="_"), sep="_")
 WRITE = TRUE
 
@@ -38,6 +38,7 @@ pair.and.combine = function(sample_data, summary_table, individual_feature, pair
     sample_data_by_wave = split(sample_data, sample_data$wave)
     model_data = data.frame()  
     pair_counts = c()
+    i = 1
     for (i in 1:length(WAVE_LIST)){
         print(WAVE_LIST[i])
         this_group = sample_data_by_wave[[as.character(WAVE_LIST[i])]]
@@ -66,7 +67,11 @@ pair.and.combine = function(sample_data, summary_table, individual_feature, pair
         }
         
         combined = merge(combined, XY_diff, by=c("iid", "pid"))
-        colnames(combined) = c(individual_feature[1:2], paste(individual_feature[3:length(individual_feature)], "_iid", sep=""), paste(individual_feature[3:length(individual_feature)], "_pid", sep=""), pair_wise_feature[3:length(pair_wise_feature)])
+        col_names = colnames(combined)
+        col_names = gsub(".x", ".iid", col_names)
+        col_names = gsub(".y", ".pid", col_names)
+        
+        colnames(combined) = col_names
         
         pair_counts = c(pair_counts, dim(combined)[1])
         

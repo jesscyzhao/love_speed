@@ -1,15 +1,19 @@
 ## Author: Chunyi Zhao 
 ## Data processing script 
 
-PARENT_DIC = "C:\\Users\\Chunyi Zhao\\Projects\\AMS204\\love_speed"
-DATA_DIC = paste(PARENT_DIC, "\\data\\", sep="")
+CUR_DIC = getwd()
+setwd("..")
+PARENT_DIC = getwd()
+setwd(CUR_DIC)
+DATA_DIC = paste(PARENT_DIC, "/data/", sep="")
 RAW_DATA = paste(DATA_DIC, "speed_dating_data.csv", sep="")
 FEATURE_DATA = paste(DATA_DIC, "feature_select.csv", sep="")
-WAVE_LIST = c(1, 2, 3)
+WAVE_LIST = c(1, 2, 3, 4, 10, 15, 16, 17)
 DATE = c(strsplit(as.character(Sys.time()), split=" ")[[1]][1], 
 	strsplit(strsplit(as.character(Sys.time()), split=" ")[[1]][2], split=":")[[1]])
-MARK = "TEST_"
+MARK = "Basic_Feature_"
 LABEL = paste("wave", paste(WAVE_LIST, collapse="_"), paste(DATE, collapse="_"), sep="_")
+WRITE = TRUE
 
 choose.features = function(raw_data, feature_select_data){
 	total_cols = colnames(raw_data) 
@@ -35,13 +39,12 @@ pair.and.combine = function(sample_data, summary_table, individual_feature, pair
     model_data = data.frame()  
     pair_counts = c()
     for (i in 1:length(WAVE_LIST)){
-        this_group = sample_data_by_wave[[as.character(WAVE_LIST[WAVE_LIST[i]])]]
+        print(WAVE_LIST[i])
+        this_group = sample_data_by_wave[[as.character(WAVE_LIST[i])]]
         this_group_by_gender = split(this_group, this_group$gender)
         A = this_group_by_gender$`0`[, individual_feature]
         B = this_group_by_gender$`1`[, individual_feature]
-        B$pid=this_group_by_gender$`1`[, "iid"]
-        B$iid=this_group_by_gender$`1`[, "pid"]
-        combined = merge(A, B, by=c("iid", "pid"))
+        combined = merge(A, B, by.x=c("iid", "pid"), by.y=c("pid", "iid"))
         
         X = this_group_by_gender$`0`[, pair_wise_feature]
         Y = this_group_by_gender$`1`[, pair_wise_feature]
@@ -63,6 +66,7 @@ pair.and.combine = function(sample_data, summary_table, individual_feature, pair
         }
         
         combined = merge(combined, XY_diff, by=c("iid", "pid"))
+        colnames(combined) = c(individual_feature[1:2], paste(individual_feature[3:length(individual_feature)], "_iid", sep=""), paste(individual_feature[3:length(individual_feature)], "_pid", sep=""), pair_wise_feature[3:length(pair_wise_feature)])
         
         pair_counts = c(pair_counts, dim(combined)[1])
         
@@ -84,10 +88,11 @@ data.process = function(){
 	sample_data = result$sample
 	model_data = result$model
 	summary_table = result$counts
-    write.csv(sample_data, paste(DATA_DIC, paste(MARK, "SAMPLE_data_", LABEL, ".csv", sep=""), sep=""), row.names=FALSE)
-    write.csv(summary_table, paste(DATA_DIC, paste(MARK, "SUMMARY_data_", LABEL, ".csv", sep=""), sep=""), row.names = FALSE)
-    write.csv(model_data, paste(DATA_DIC, paste(MARK, "MODEL_data_", LABEL, ".csv", sep=""), sep=""), row.names = FALSE)
+	if (WRITE){
+       write.csv(sample_data, paste(DATA_DIC, paste(MARK, "SAMPLE_data_", LABEL, ".csv", sep=""), sep=""), row.names=FALSE)
+        write.csv(summary_table, paste(DATA_DIC, paste(MARK, "SUMMARY_data_", LABEL, ".csv", sep=""), sep=""), row.names = FALSE)
+        write.csv(model_data, paste(DATA_DIC, paste(MARK, "MODEL_data_", LABEL, ".csv", sep=""), sep=""), row.names = FALSE)
+    }
 }
-
 
 data.process()

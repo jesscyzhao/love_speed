@@ -7,11 +7,12 @@ PARENT_DIC = getwd()
 setwd(CUR_DIC)
 DATA_DIC = paste(PARENT_DIC, "/data/", sep="")
 RAW_DATA = paste(DATA_DIC, "speed_dating_data.csv", sep="")
-FEATURE_DATA = paste(DATA_DIC, "feature_select.csv", sep="")
-WAVE_LIST = c(1, 2, 3)
+#FEATURE_DATA = paste(DATA_DIC, "feature_select.csv", sep="")
+FEATURE_DATA = paste(DATA_DIC, "feature_select_ext.csv", sep="")
+WAVE_LIST = c(1, 2, 3, 4, 10, 11, 15, 16, 17)
 DATE = c(strsplit(as.character(Sys.time()), split=" ")[[1]][1], 
 	strsplit(strsplit(as.character(Sys.time()), split=" ")[[1]][2], split=":")[[1]])
-MARK = "TEST_"
+MARK = "TEST_SUM_"
 LABEL = paste("wave", paste(WAVE_LIST, collapse="_"), paste(DATE, collapse="_"), sep="_")
 WRITE = TRUE
 
@@ -58,7 +59,7 @@ pair.and.combine = function(sample_data, summary_table, individual_feature, pair
         if (all(X_sorted$iid == Y_sorted$iid) & all(X_sorted$pid == Y_sorted$pid)){
             iid = X_sorted$iid
             pid = X_sorted$pid
-            XY_diff = cbind(iid, pid, X_sorted[, 3:length(pair_wise_feature)] - Y_sorted[, 3:length(pair_wise_feature)])
+            XY_diff = cbind(iid, pid, X_sorted[, 3:length(pair_wise_feature)] + Y_sorted[, 3:length(pair_wise_feature)])
             
         }
         else{

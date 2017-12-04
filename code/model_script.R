@@ -26,6 +26,11 @@ for (feature in factor_features){
     model_data_reduced[, feature] = as.factor(model_data_reduced[, feature])
 }
 
+model_data_reduced_norm = model_data_reduced
+for (feature in setdiff(colnames(model_data_reduced), c("match",factor_features))){
+    model_data_reduced_norm[,feature] = (model_data_reduced[, feature] - mean(model_data_reduced[, feature]))/sd(model_data_reduced[, feature])
+}
+
 ###############################################################################################################
 
 
@@ -47,6 +52,13 @@ step_result = auto.fit.and.step.select(model_data_reduced, complete_features, fa
 print("complete features")
 print(result$m1_sig_features)
 print(step_result$m1_sig_features)
+
+
+result_norm = auto.fit.and.model.compare(model_data_reduced_norm, complete_features, factor_features)
+
+print("complete features normalized")
+print(result_norm$m1_sig_features)
+
 
 
 # With individual effect
@@ -75,45 +87,45 @@ summary(M_no_first_wave)
 
 # No individual effect 
 no_first_wave_result=auto.fit.and.model.compare(model_data_no_first_wave, complete_features, factor_features)
+no_first_wave_result_step = auto.fit.and.step.select(model_data_no_first_wave, complete_features, 
+                                                     factor_features)
 # With individual effect
-no_first_wave_result_ind = auto.fit.and.model.compare(model_data_no_first_wave, c(complete_features, "iid", "pid"), factor_features)
-## Currently it deosn't converge 
+# no_first_wave_result_ind = auto.fit.and.model.compare(model_data_no_first_wave, c(complete_features, "iid", "pid"), factor_features)
+
 
 # With wave effect 
 no_first_result_wave = auto.fit.and.model.compare(model_data_no_first_wave, c(complete_features, "wave"))
-
-propose_features = clean.up.sigificant.feature(no_first_result_wave$m1_sig_features, factor_features)
-
+no_first_result_wave_step = auto.fit.and.step.select(model_data_no_first_wave, c(complete_features, "wave"))
+propose_features = clean.up.sigificant.feature(no_first_result_wave_step$m1_sig_features, factor_features)
 propose_features_ind_effect = c(propose_features,  "iid", "pid")
 
 M_1 = fit.with.these.features(model_data_no_first_wave, propose_features)
 # Still doesn't converge
-M_2 = fit.with.these.features(model_data_no_first_wave, propose_features_ind_effect)
+# M_2 = fit.with.these.features(model_data_no_first_wave, propose_features_ind_effect)
 
-print(summary(M_1))
 
-AIC(M_1)
-AIC(M_2)
 
-feature_list = list(pref = pref_features, rate = rate_features, ind_diff= individual_diff_features)
 
-by_wave_result = list()
 
-model_data_reduced_by_wave = split(model_data_reduced, model_data_reduced$wave)
-
-for (wave in names(model_data_reduced_by_wave)){
-    print(wave)
-    model_data_this_wave = model_data_reduced_by_wave[[as.character(wave)]]
-    this_wave_result = list()
-    for (feature_type in names(feature_list)){
-        print(feature_type)
-        feature_to_fit = if(wave==16 & feature_type == "ind_diff") setdiff(feature_list[[as.character(feature_type)]], c("samecareer", "samefield")) else feature_list[[as.character(feature_type)]]
-        this_wave_result[[as.character(feature_type)]] = auto.fit.and.model.compare(model_data_this_wave, feature_to_fit)
-    }
-    this_wave_proposed_feature = clean.up.sigificant.feature(unlist(lapply(this_wave_result, function(x){x$m1_sig_features})))
-    final_result = auto.fit.and.model.compare(model_data_this_wave, this_wave_proposed_feature)
-    print("proposed feature")
-    print (final_result$m1_sig_features)
-    this_wave_result[["final_result"]] = final_result
-    by_wave_result[[as.character(wave)]] = this_wave_result
-}
+# feature_list = list(pref = pref_features, rate = rate_features, ind_diff= individual_diff_features)
+# # 
+# by_wave_result = list()
+# 
+# model_data_reduced_by_wave = split(model_data_reduced, model_data_reduced$wave)
+# 
+# for (wave in names(model_data_reduced_by_wave)){
+#     print(wave)
+#     model_data_this_wave = model_data_reduced_by_wave[[as.character(wave)]]
+#     this_wave_result = list()
+#     for (feature_type in names(feature_list)){
+#         print(feature_type)
+#         feature_to_fit = if(wave==16 & feature_type == "ind_diff") setdiff(feature_list[[as.character(feature_type)]], c("samecareer", "samefield")) else feature_list[[as.character(feature_type)]]
+#         this_wave_result[[as.character(feature_type)]] = auto.fit.and.model.compare(model_data_this_wave, feature_to_fit)
+#     }
+#     this_wave_proposed_feature = clean.up.sigificant.feature(unlist(lapply(this_wave_result, function(x){x$m1_sig_features})))
+#     final_result = auto.fit.and.model.compare(model_data_this_wave, this_wave_proposed_feature)
+#     print("proposed feature")
+#     print (final_result$m1_sig_features)
+#     this_wave_result[["final_result"]] = final_result
+#     by_wave_result[[as.character(wave)]] = this_wave_result
+# }

@@ -54,6 +54,7 @@ auto.fit.and.model.compare = function(model_data, features, factor_features=FACT
 }
 
 auto.fit.and.step.select = function(model_data, features, factor_features=FACTOR_FEATURES, alpha=0.05){
+    ## Reference http://www.utstat.toronto.edu/~brunner/oldclass/312f10/handouts/Stepwise1.pdf
     
     M_full = fit.with.these.features(model_data, features)
     M_null = glm(match ~ 1, data = model_data, family = binomial(link="logit"))
@@ -67,4 +68,16 @@ auto.fit.and.step.select = function(model_data, features, factor_features=FACTOR
    
 }
 
-
+regression.summary.output = function(model_object_list, output_dic, file_name){
+    
+    output_file = paste(OUTPUT_DIC, file_name, sep="")
+    sink(paste(output_file, ".txt", sep=""))
+    for (model_name in names(model_object_list)){
+        print(model_name)
+        this_model = model_object_list[[model_name]]
+        print(this_model$formula)
+        print(summary(this_model))
+    }
+    sink()
+    # write.csv(tidy(model_object), paste(output_file, ".csv", sep=""))
+}

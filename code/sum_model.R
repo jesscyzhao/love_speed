@@ -4,6 +4,8 @@ PARENT_DIC = getwd()
 setwd(CUR_DIC)
 DATA_DIC = paste(PARENT_DIC, "/data/", sep="")
 DATA_SUB_DIC = paste(DATA_DIC, "toy_data_sum_more_wave_11_28/", sep="")
+OUTPUT_DIC = paste(PARENT_DIC, "/output/sum_model_result/", sep="")
+
 FEATURE_DATA = paste(DATA_DIC, "feature_select_ext.csv", sep="")
 MODEL_DATA = paste(DATA_SUB_DIC, "TEST_SUM_MODEL.csv", sep="")
 SAMPLE_DATA = paste(DATA_SUB_DIC, "TEST_SUM_SAMPLE.csv", sep="")
@@ -21,4 +23,23 @@ source(MODEL_FUNCTION)
 
 source(MODEL_SCRIPT)
 
+# 
+# important_result = list(
+#     all_wave_complete_feature_M0 = result$M0,
+#     all_waves_complete_feature_M1 =  result$M1, 
+#     all_waves_compelte_feature_step = step_result$M1, 
+#     all_waves_complete_feature_wave_effect_M1 =  result_wave$M1,
+#     all_waves_complete_feature_wave_effect_step =  step_result_wave$M1, 
+#     all_waves_wave_effect_only = M_wave_effect,
+#     no_first_wave_complete_feature =  no_first_wave_result$M1, 
+#     no_first_wave_complete_feature_step =  no_first_wave_result_step$M1, 
+#     no_first_wave_complete_feature_wave_effect = no_first_result_wave$M1,
+#     no_first_wave_complete_wave_effect_step_M0 = no_first_result_wave_step$M0,
+#     no_first_wave_complete_feature_wave_effect_step = no_first_result_wave_step$M1
+# )
 
+regression.summary.output(important_result, OUTPUT_DIC, "major_regression_summary")
+
+stargazer(step_result$M1, step_result_wave$M1, type="text", 
+          single.row=TRUE, 
+          out = paste(OUTPUT_DIC, "complete_step_wave_step"))

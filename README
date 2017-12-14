@@ -1,2 +1,20 @@
-This is the first commit 
+AMS 204 Final Project
+
+Download the project, keeping the directory structure. 
+
+Set the working directory to where the project is saved.
+
+Major Scirpt: 
+code/difference_abs_model.r : contrast model 
+code/sum_model.r: teamwork model 
+
+Dependency: 
+stargazer, 
+ggplot2, 
+plotROC, 
+ROCR, 
+MKmisc, 
+pscl, 
+lmtest, 
+reshape2
 

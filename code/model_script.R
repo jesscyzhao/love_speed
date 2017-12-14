@@ -4,6 +4,8 @@ source(MODEL_FUNCTION)
 
 ########################################Data prep###############################################################
 model_data = model_data[which(model_data$part_met.pid!=3), ]
+model_data = model_data[which(model_data$part_met.iid!=7), ]
+model_data = model_data[which(model_data$part_met.pid!=5), ]
 all_vars = colnames(model_data)
 all_features = all_vars[which(!(all_vars %in% c("match.iid", "match.pid", "samerace.iid", "gender.iid", "gender.pid", "wave.pid") ))]
 individual_feature = as.character(feature_select_data[which(feature_select_data$ind==1),"new_col"])
@@ -18,7 +20,10 @@ model_data_reduced$samecareer = as.factor(sapply(model_data_no_na$career_c.iid- 
 model_data_reduced$samefield = as.factor(sapply(model_data_no_na$field_cd.iid- model_data_no_na$field_cd.pid, function(x){if(x==0) 1 else 0}))
 model_data_reduced$wave = model_data_no_na$wave.iid
 model_data_reduced$samerace = model_data_no_na$samerace.iid
-model_data_reduced$part_met = model_data_no_na$part_met.iid
+met = model_data_no_na$part_met.iid*model_data_no_na$part_met.pid
+met[which(met==2)] = 2 
+met[which(met==4)] = 2 
+model_data_reduced$part_met = met
 model_data_reduced$match = model_data_no_na$match.iid
 
 model_data_reduced = model_data_reduced[complete.cases(model_data_reduced),]
@@ -40,7 +45,7 @@ pref_features = all_features[grep("pref_", all_features)]
 rate_features = all_features[grep("part_", all_features)]
 rate_features = rate_features[grep("pref_", rate_features, invert=T)]
 rate_features = rate_features[which(!(rate_features %in% c("part_met.iid", "part_met.pid",  "dec_part.iid", "dec_part.pid")))]
-individual_diff_features = c("age_part", "imprace", "imprelig", "date", "go_out", "samegoal", "samecareer", "samefield", "samerace")
+individual_diff_features = c("age_part", "imprace", "imprelig", "date", "go_out", "samegoal", "samecareer", "samefield", "samerace", "part_met")
 
 complete_features = c(pref_features, rate_features, individual_diff_features)
 
@@ -64,6 +69,15 @@ print(result_norm$m1_sig_features)
 # With individual effect
 result_ind = auto.fit.and.model.compare(model_data_reduced, c(complete_features, "iid", "pid"), factor_features)
 ## Currently it deosn't converge 
+
+result_ind_iid = auto.fit.and.model.compare(model_data_reduced, c(complete_features, "iid"), factor_features)
+
+result_ind_pid = auto.fit.and.model.compare(model_data_reduced, c(complete_features, "pid"), factor_features)
+
+step_result_ind_iid = auto.fit.and.step.select(model_data_reduced, c(complete_features), "iid", factor_features)
+
+step_result_ind_pid = auto.fit.and.step.select(model_data_reduced, c(complete_features), "pid", factor_features)
+
 
 # With wave effect 
 result_wave = auto.fit.and.model.compare(model_data_reduced, c(complete_features, "wave"))

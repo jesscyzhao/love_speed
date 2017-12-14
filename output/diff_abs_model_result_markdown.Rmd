@@ -1,0 +1,19 @@
+---
+title: "diff_abs_model_result"
+author: "Chunyi Zhao"
+date: "December 2, 2017"
+output: pdf_document
+---
+
+```{r,  echo=FALSE, results='hide'}
+ source("../code/difference_abs_model.r")
+```
+
+## All features 
+```{r mtcars}
+require(stargazer)
+stargazer(result$M1, step_result$M1, type="text", 
+          covariate.labels=c("Pref. of Attractiveness","Pref. of Intelligence",
+"Rate of Attractiveness","Pref. of Sincerity","Prob. of yes","Overall score", "Age", "Importance of religion", "Rate of Fun", "Date freq.", "Go out freq.", "same goal1"),
+          single.row = TRUE)
+```

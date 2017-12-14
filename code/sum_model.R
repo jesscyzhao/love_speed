@@ -23,23 +23,45 @@ source(MODEL_FUNCTION)
 
 source(MODEL_SCRIPT)
 
-# 
-# important_result = list(
-#     all_wave_complete_feature_M0 = result$M0,
-#     all_waves_complete_feature_M1 =  result$M1, 
-#     all_waves_compelte_feature_step = step_result$M1, 
-#     all_waves_complete_feature_wave_effect_M1 =  result_wave$M1,
-#     all_waves_complete_feature_wave_effect_step =  step_result_wave$M1, 
-#     all_waves_wave_effect_only = M_wave_effect,
-#     no_first_wave_complete_feature =  no_first_wave_result$M1, 
-#     no_first_wave_complete_feature_step =  no_first_wave_result_step$M1, 
-#     no_first_wave_complete_feature_wave_effect = no_first_result_wave$M1,
-#     no_first_wave_complete_wave_effect_step_M0 = no_first_result_wave_step$M0,
-#     no_first_wave_complete_feature_wave_effect_step = no_first_result_wave_step$M1
-# )
+library(stargazer)
+setwd(PARENT_DIC)
+setwd("..")
+ROOT_DIC = getwd()
+setwd(CUR_DIC)
+final_report_dic = paste(ROOT_DIC, "/Final report/final_report/", sep="")
 
-regression.summary.output(important_result, OUTPUT_DIC, "major_regression_summary")
+stargazer(result$M1, step_result$M1, type="text", 
+          single.row=TRUE)
 
-stargazer(step_result$M1, step_result_wave$M1, type="text", 
+stargazer(result$M1, step_result$M1, type="latex", 
           single.row=TRUE, 
-          out = paste(OUTPUT_DIC, "complete_step_wave_step"))
+          covariate.labels=c("Rating of Attractiveness", "Rating of Ambition", "Rating of Shared Interest", "Overall score", "Prob of yes", "Go out freq.", "Importance of race", "Same goal yes", "Constant"), 
+          out = paste(final_report_dic, "sum_m_complete.tex"), sep="")
+
+stargazer(result_wave$M1, step_result_wave$M1, type="text", 
+          no.space=TRUE, 
+          single.row = TRUE)
+stargazer(result_wave$M1, step_result_wave$M1, type="latex", 
+          single.row=TRUE, 
+          no.space = TRUE, 
+          covariate.labels=c("Rating of Attractiveness", "Rating of Ambition", "Rating of Shared Interest", "Overall score", "Prob of yes", "Go out freq.", "Importance of race", "Same goal yes", "Constant"), 
+          out = paste(final_report_dic, "sum_m_complete_wave.tex"), sep="")
+
+
+stargazer(result_ind_iid$M1, single.row = TRUE, 
+          type="text")
+stargazer(result_ind_iid$M1, single.row=TRUE, 
+          type="latex", out=paste(final_report_dic, "teamwork_ind_iid_ss.tex", sep=""))
+
+library(MKmisc)
+step_result_test = HLgof.test(fit = fitted(step_result$M1), obs=model_data_reduced$match)
+
+all_numerical_variables = setdiff(complete_features, factor_features)
+all_num_var_data = model_data_reduced[, all_numerical_variables]
+colnames(all_num_var_data) = c("Pref. Attractive", "Pref. Sincere", "Pref. Intelligent", "Pref. Fun", "Pref. Ambition", "Pref. Shared Interest", "Rating Attractive", "Rating Sincere", "Rating Intelligence", "Rating Fun", "Rating Ambition", "Rating Shared Interest", "Overall Score", "Prob. to say yes", "Age", "Importance Race", "Importance Religion", "Date", "Go out")
+num_variable_corr = cor(all_num_var_data)
+
+require(ggplot2)
+require(reshape2)
+melted_corr = melt(num_variable_corr) 
+ggplot(data = melted_corr, aes(x = Var1, y = Var2, fill=value)) + geom_tile() + scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0, limit = c(-1,1))+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(), axis.text.x = element_blank())

@@ -1,0 +1,510 @@
+[1] "all_wave_complete_feature_M0"
+[1] "match ~ pref_part_att+pref_part_sin+pref_part_int+pref_part_fun+pref_part_amb+pref_part_sha+part_att+part_sin+part_int+part_fun+part_amb+part_sha+part_lik+part_prob+age_part+imprace+imprelig+date+go_out+samegoal+samecareer+samefield+samerace"
+
+Call:
+glm(formula = match ~ pref_part_att+pref_part_sin+pref_part_int+
+pref_part_fun+pref_part_amb+pref_part_sha+part_att+part_sin+part_int+
+part_fun+part_amb+part_sha+part_lik+part_prob+age_part+imprace+
+imprelig+date+go_out+samegoal+samecareer+samefield+samerace, 
+family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2836  -0.6658  -0.4723  -0.2784   2.5398  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    0.197262   0.352473   0.560 0.575718    
+pref_part_att  0.015985   0.006410   2.494 0.012645 *  
+pref_part_sin -0.022553   0.013416  -1.681 0.092748 .  
+pref_part_int -0.029744   0.012236  -2.431 0.015063 *  
+pref_part_fun  0.019908   0.014225   1.400 0.161655    
+pref_part_amb -0.005044   0.015164  -0.333 0.739395    
+pref_part_sha  0.010266   0.015016   0.684 0.494157    
+part_att      -0.129505   0.060521  -2.140 0.032368 *  
+part_sin       0.011052   0.065624   0.168 0.866255    
+part_int      -0.049555   0.078430  -0.632 0.527499    
+part_fun      -0.123326   0.064853  -1.902 0.057221 .  
+part_amb       0.086097   0.057622   1.494 0.135128    
+part_sha      -0.059389   0.059062  -1.006 0.314641    
+part_lik      -0.229049   0.077727  -2.947 0.003211 ** 
+part_prob     -0.079980   0.053223  -1.503 0.132912    
+age_part      -0.072922   0.032032  -2.277 0.022815 *  
+imprace       -0.020456   0.033647  -0.608 0.543206    
+imprelig      -0.089602   0.032942  -2.720 0.006527 ** 
+date           0.117287   0.063319   1.852 0.063978 .  
+go_out        -0.282524   0.083323  -3.391 0.000697 ***
+samegoal1     -0.405157   0.182237  -2.223 0.026200 *  
+samecareer1    0.064523   0.217844   0.296 0.767085    
+samefield1     0.262506   0.262894   0.999 0.318024    
+samerace1      0.001810   0.166374   0.011 0.991319    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.82  on 1188  degrees of freedom
+Residual deviance:  996.87  on 1165  degrees of freedom
+AIC: 1044.9
+
+Number of Fisher Scoring iterations: 5
+
+[1] "all_waves_complete_feature_M1"
+[1] "match ~ pref_part_att+pref_part_int+part_att+part_lik+age_part+imprelig+go_out+samegoal"
+
+Call:
+glm(formula = match ~ pref_part_att+pref_part_int+part_att+part_lik
++age_part+imprelig+go_out+samegoal, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2365  -0.6745  -0.4948  -0.3063   2.5742  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    0.214177   0.233851   0.916 0.359735    
+pref_part_att  0.016981   0.005423   3.131 0.001741 ** 
+pref_part_int -0.028247   0.011712  -2.412 0.015871 *  
+part_att      -0.138289   0.058587  -2.360 0.018256 *  
+part_lik      -0.311755   0.069339  -4.496 6.92e-06 ***
+age_part      -0.079988   0.031829  -2.513 0.011968 *  
+imprelig      -0.102050   0.030970  -3.295 0.000984 ***
+go_out        -0.304988   0.082130  -3.713 0.000204 ***
+samegoal1     -0.419713   0.178050  -2.357 0.018410 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.8  on 1188  degrees of freedom
+Residual deviance: 1017.9  on 1180  degrees of freedom
+AIC: 1035.9
+
+Number of Fisher Scoring iterations: 5
+
+[1] "all_waves_compelte_feature_step"
+match ~ part_lik + go_out + imprelig + part_fun + date + age_part + 
+    samegoal + pref_part_att + pref_part_int + part_att + pref_part_sin + 
+    part_prob
+<environment: 0x000000001923f4a8>
+
+Call:
+glm(formula = match ~ part_lik + go_out + imprelig + part_fun + 
+    date + age_part + samegoal + pref_part_att + pref_part_int + 
+    part_att + pref_part_sin + part_prob, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2611  -0.6828  -0.4862  -0.2899   2.6002  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    0.320368   0.282312   1.135 0.256459    
+part_lik      -0.241583   0.073907  -3.269 0.001080 ** 
+go_out        -0.298735   0.082734  -3.611 0.000305 ***
+imprelig      -0.096526   0.031341  -3.080 0.002071 ** 
+part_fun      -0.129239   0.061951  -2.086 0.036965 *  
+date           0.121808   0.062491   1.949 0.051271 .  
+age_part      -0.074845   0.031920  -2.345 0.019038 *  
+samegoal1     -0.396148   0.179483  -2.207 0.027303 *  
+pref_part_att  0.018439   0.005794   3.182 0.001462 ** 
+pref_part_int -0.026314   0.011913  -2.209 0.027191 *  
+part_att      -0.116807   0.059518  -1.963 0.049699 *  
+pref_part_sin -0.020232   0.013151  -1.538 0.123928    
+part_prob     -0.077719   0.052101  -1.492 0.135781    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.8  on 1188  degrees of freedom
+Residual deviance: 1004.5  on 1176  degrees of freedom
+AIC: 1030.5
+
+Number of Fisher Scoring iterations: 5
+
+[1] "all_waves_complete_feature_wave_effect_M0"
+[1] "match ~ pref_part_att+pref_part_sin+pref_part_int+pref_part_fun+pref_part_amb+pref_part_sha+part_att+part_sin+part_int+part_fun+part_amb+part_sha+part_lik+part_prob+age_part+imprace+imprelig+date+go_out+samegoal+samecareer+samefield+samerace+wave"
+
+Call:
+glm(formula = this_formula, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.4209  -0.6551  -0.4584  -0.2694   2.6684  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)   
+(Intercept)    0.971337   0.506293   1.919  0.05504 . 
+pref_part_att  0.012339   0.006903   1.788  0.07386 . 
+pref_part_sin -0.022515   0.013763  -1.636  0.10187   
+pref_part_int -0.022901   0.012610  -1.816  0.06936 . 
+pref_part_fun  0.014234   0.015343   0.928  0.35357   
+pref_part_amb -0.007885   0.016127  -0.489  0.62488   
+pref_part_sha  0.006414   0.015451   0.415  0.67805   
+part_att      -0.126391   0.061031  -2.071  0.03837 * 
+part_sin       0.008672   0.066399   0.131  0.89609   
+part_int      -0.057714   0.079392  -0.727  0.46726   
+part_fun      -0.126624   0.065898  -1.922  0.05467 . 
+part_amb       0.074029   0.059085   1.253  0.21023   
+part_sha      -0.058110   0.059564  -0.976  0.32927   
+part_lik      -0.235083   0.078234  -3.005  0.00266 **
+part_prob     -0.068038   0.054048  -1.259  0.20809   
+age_part      -0.078134   0.032850  -2.378  0.01738 * 
+imprace       -0.013435   0.034247  -0.392  0.69483   
+imprelig      -0.080494   0.033700  -2.389  0.01692 * 
+date           0.110227   0.064291   1.715  0.08643 . 
+go_out        -0.269880   0.083563  -3.230  0.00124 **
+samegoal1     -0.483389   0.189297  -2.554  0.01066 * 
+samecareer1    0.101693   0.224414   0.453  0.65044   
+samefield1     0.187550   0.268938   0.697  0.48557   
+samerace1     -0.012733   0.171351  -0.074  0.94076   
+wave2         -0.982673   0.416542  -2.359  0.01832 * 
+wave3         -1.263785   0.532490  -2.373  0.01763 * 
+wave4         -0.306212   0.395540  -0.774  0.43883   
+wave10        -0.506276   0.512219  -0.988  0.32296   
+wave11        -0.878514   0.389583  -2.255  0.02413 * 
+wave15        -0.707496   0.399297  -1.772  0.07642 . 
+wave16        -0.477950   0.534884  -0.894  0.37156   
+wave17        -0.618498   0.425592  -1.453  0.14615   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.8  on 1188  degrees of freedom
+Residual deviance:  983.0  on 1157  degrees of freedom
+AIC: 1047
+
+Number of Fisher Scoring iterations: 5
+
+[1] "all_waves_complete_feature_wave_effect_M1"
+[1] "match ~ part_att+part_lik+age_part+imprelig+go_out+wave+samegoal"
+
+Call:
+glm(formula = this_formula, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.4023  -0.6701  -0.4881  -0.2953   2.5359  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.13145    0.34446   3.285 0.001021 ** 
+part_att    -0.13274    0.05880  -2.258 0.023965 *  
+part_lik    -0.31112    0.06982  -4.456 8.35e-06 ***
+age_part    -0.08681    0.03250  -2.671 0.007570 ** 
+imprelig    -0.08404    0.03168  -2.652 0.007990 ** 
+go_out      -0.30333    0.08220  -3.690 0.000224 ***
+wave2       -1.40440    0.37883  -3.707 0.000210 ***
+wave3       -1.54377    0.49583  -3.114 0.001849 ** 
+wave4       -0.55602    0.34548  -1.609 0.107524    
+wave10      -0.56139    0.47577  -1.180 0.238016    
+wave11      -1.13359    0.33760  -3.358 0.000786 ***
+wave15      -0.88748    0.37028  -2.397 0.016539 *  
+wave16      -0.63798    0.48372  -1.319 0.187208    
+wave17      -0.96341    0.39122  -2.463 0.013794 *  
+samegoal1   -0.53005    0.18535  -2.860 0.004241 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.8  on 1188  degrees of freedom
+Residual deviance: 1005.5  on 1174  degrees of freedom
+AIC: 1035.5
+
+Number of Fisher Scoring iterations: 5
+
+[1] "all_waves_complete_feature_wave_effect_step"
+match ~ part_lik + go_out + imprelig + wave + samegoal + age_part + 
+    part_fun + part_att + date
+<environment: 0x0000000019187d20>
+
+Call:
+glm(formula = match ~ part_lik + go_out + imprelig + wave + samegoal + 
+    age_part + part_fun + part_att + date, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.4712  -0.6652  -0.4748  -0.2820   2.6763  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.01886    0.37969   2.683 0.007288 ** 
+part_lik    -0.25896    0.07337  -3.529 0.000417 ***
+go_out      -0.29804    0.08261  -3.608 0.000309 ***
+imprelig    -0.08105    0.03175  -2.552 0.010702 *  
+wave2       -1.33358    0.38379  -3.475 0.000511 ***
+wave3       -1.51744    0.50114  -3.028 0.002462 ** 
+wave4       -0.53056    0.35075  -1.513 0.130376    
+wave10      -0.61897    0.48070  -1.288 0.197871    
+wave11      -1.16064    0.34278  -3.386 0.000709 ***
+wave15      -0.87978    0.37511  -2.345 0.019008 *  
+wave16      -0.69996    0.48736  -1.436 0.150942    
+wave17      -0.94573    0.39523  -2.393 0.016719 *  
+samegoal1   -0.51157    0.18604  -2.750 0.005963 ** 
+age_part    -0.08377    0.03256  -2.573 0.010095 *  
+part_fun    -0.14215    0.06273  -2.266 0.023451 *  
+part_att    -0.11386    0.05929  -1.920 0.054803 .  
+date         0.12250    0.06272   1.953 0.050811 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.82  on 1188  degrees of freedom
+Residual deviance:  996.86  on 1172  degrees of freedom
+AIC: 1030.9
+
+Number of Fisher Scoring iterations: 5
+
+[1] "all_waves_wave_effect_only"
+[1] "match ~ wave"
+
+Call:
+glm(formula = this_formula, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.9940  -0.6254  -0.5651  -0.5072   2.0565  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  -0.4480     0.2669  -1.678  0.09327 .  
+wave2        -1.5379     0.3541  -4.343 1.41e-05 ***
+wave3        -1.4799     0.4631  -3.196  0.00139 ** 
+wave4        -0.8473     0.3146  -2.694  0.00707 ** 
+wave10       -0.8870     0.4445  -1.995  0.04599 *  
+wave11       -1.3056     0.3085  -4.232 2.32e-05 ***
+wave15       -1.0845     0.3410  -3.180  0.00147 ** 
+wave16       -0.5816     0.4549  -1.278  0.20111    
+wave17       -1.1725     0.3712  -3.158  0.00159 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1114.8  on 1188  degrees of freedom
+Residual deviance: 1088.5  on 1180  degrees of freedom
+AIC: 1106.5
+
+Number of Fisher Scoring iterations: 4
+
+[1] "no_first_wave_complete_feature"
+[1] "match ~ pref_part_att+pref_part_sin+part_att+part_lik+age_part+imprelig+go_out"
+
+Call:
+glm(formula = this_formula, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2217  -0.6560  -0.5026  -0.3193   2.4928  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)    
+(Intercept)   -0.086657   0.232826  -0.372  0.70975    
+pref_part_att  0.019358   0.006137   3.154  0.00161 ** 
+pref_part_sin -0.031711   0.013543  -2.342  0.01921 *  
+part_att      -0.162679   0.061771  -2.634  0.00845 ** 
+part_lik      -0.307973   0.073199  -4.207 2.58e-05 ***
+age_part      -0.074554   0.032913  -2.265  0.02350 *  
+imprelig      -0.083009   0.032513  -2.553  0.01068 *  
+go_out        -0.214978   0.083184  -2.584  0.00976 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1020.41  on 1129  degrees of freedom
+Residual deviance:  943.58  on 1122  degrees of freedom
+AIC: 959.58
+
+Number of Fisher Scoring iterations: 5
+
+[1] "no_first_wave_complete_feature_step"
+match ~ part_lik + go_out + part_att + age_part + imprelig + 
+    pref_part_att + pref_part_sin + part_fun + pref_part_int + 
+    date + samegoal + part_prob
+<environment: 0x00000000190857b0>
+
+Call:
+glm(formula = match ~ part_lik + go_out + part_att + age_part + 
+    imprelig + pref_part_att + pref_part_sin + part_fun + pref_part_int + 
+    date + samegoal + part_prob, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2286  -0.6580  -0.4815  -0.2910   2.5879  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)   
+(Intercept)    0.175614   0.295711   0.594  0.55260   
+part_lik      -0.239524   0.077752  -3.081  0.00207 **
+go_out        -0.226133   0.083628  -2.704  0.00685 **
+part_att      -0.148191   0.062827  -2.359  0.01834 * 
+age_part      -0.072517   0.033205  -2.184  0.02897 * 
+imprelig      -0.080255   0.032805  -2.446  0.01443 * 
+pref_part_att  0.021086   0.006535   3.226  0.00125 **
+pref_part_sin -0.027038   0.013954  -1.938  0.05266 . 
+part_fun      -0.127133   0.064595  -1.968  0.04905 * 
+pref_part_int -0.022774   0.012346  -1.845  0.06509 . 
+date           0.121798   0.065557   1.858  0.06318 . 
+samegoal1     -0.332534   0.190472  -1.746  0.08084 . 
+part_prob     -0.084420   0.054406  -1.552  0.12074   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1020.41  on 1129  degrees of freedom
+Residual deviance:  926.26  on 1117  degrees of freedom
+AIC: 952.26
+
+Number of Fisher Scoring iterations: 5
+
+[1] "no_first_wave_complete_feature_wave_effect"
+[1] "match ~ pref_part_att+pref_part_sin+part_att+part_lik+age_part+imprelig+go_out+wave"
+
+Call:
+glm(formula = this_formula, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.3819  -0.6650  -0.4802  -0.2994   2.5441  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)    
+(Intercept)   -0.442318   0.319384  -1.385  0.16608    
+pref_part_att  0.019303   0.006438   2.998  0.00272 ** 
+pref_part_sin -0.030105   0.013952  -2.158  0.03095 *  
+part_att      -0.163095   0.062287  -2.618  0.00883 ** 
+part_lik      -0.312624   0.073677  -4.243  2.2e-05 ***
+age_part      -0.083283   0.033516  -2.485  0.01296 *  
+imprelig      -0.085339   0.032877  -2.596  0.00944 ** 
+go_out        -0.233005   0.083841  -2.779  0.00545 ** 
+wave3         -0.126999   0.460629  -0.276  0.78277    
+wave4          0.819434   0.297532   2.754  0.00589 ** 
+wave10         0.728110   0.451550   1.612  0.10686    
+wave11         0.314503   0.288853   1.089  0.27624    
+wave15         0.409318   0.333183   1.229  0.21926    
+wave16         0.771667   0.454376   1.698  0.08945 .  
+wave17         0.327314   0.359185   0.911  0.36215    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1020.41  on 1129  degrees of freedom
+Residual deviance:  931.16  on 1115  degrees of freedom
+AIC: 961.16
+
+Number of Fisher Scoring iterations: 5
+
+[1] "no_first_wave_complete_wave_effect_step_M0"
+[1] "match ~ pref_part_att+pref_part_sin+pref_part_int+pref_part_fun+pref_part_amb+pref_part_sha+part_att+part_sin+part_int+part_fun+part_amb+part_sha+part_lik+part_prob+age_part+imprace+imprelig+date+go_out+samegoal+samecareer+samefield+samerace+wave"
+
+Call:
+glm(formula = this_formula, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2791  -0.6494  -0.4572  -0.2698   2.6573  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)   
+(Intercept)   -0.110426   0.450800  -0.245  0.80649   
+pref_part_att  0.018678   0.007405   2.522  0.01166 * 
+pref_part_sin -0.029214   0.014604  -2.000  0.04545 * 
+pref_part_int -0.020353   0.013016  -1.564  0.11788   
+pref_part_fun  0.016920   0.016131   1.049  0.29423   
+pref_part_amb -0.016434   0.017003  -0.967  0.33378   
+pref_part_sha  0.011621   0.015852   0.733  0.46351   
+part_att      -0.155330   0.064406  -2.412  0.01588 * 
+part_sin       0.007601   0.069250   0.110  0.91259   
+part_int      -0.036342   0.084580  -0.430  0.66743   
+part_fun      -0.116584   0.068613  -1.699  0.08929 . 
+part_amb       0.073659   0.062755   1.174  0.24049   
+part_sha      -0.074011   0.062994  -1.175  0.24004   
+part_lik      -0.227241   0.082634  -2.750  0.00596 **
+part_prob     -0.074800   0.056249  -1.330  0.18359   
+age_part      -0.081728   0.034041  -2.401  0.01636 * 
+imprace       -0.011767   0.036510  -0.322  0.74722   
+imprelig      -0.077981   0.034729  -2.245  0.02474 * 
+date           0.110284   0.067557   1.632  0.10258   
+go_out        -0.226851   0.084536  -2.683  0.00729 **
+samegoal1     -0.376628   0.197838  -1.904  0.05695 . 
+samecareer1    0.180802   0.227467   0.795  0.42670   
+samefield1     0.319053   0.277068   1.152  0.24951   
+samerace1     -0.029085   0.180131  -0.161  0.87173   
+wave3         -0.255556   0.474237  -0.539  0.58997   
+wave4          0.688709   0.309052   2.228  0.02585 * 
+wave10         0.412742   0.468109   0.882  0.37793   
+wave11         0.095729   0.302081   0.317  0.75132   
+wave15         0.231426   0.347021   0.667  0.50484   
+wave16         0.486001   0.477415   1.018  0.30869   
+wave17         0.324416   0.380192   0.853  0.39350   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1020.41  on 1129  degrees of freedom
+Residual deviance:  908.49  on 1099  degrees of freedom
+AIC: 970.49
+
+Number of Fisher Scoring iterations: 5
+
+[1] "no_first_wave_complete_feature_wave_effect_step"
+match ~ part_lik + go_out + part_att + age_part + imprelig + 
+    pref_part_att + pref_part_sin + part_fun + pref_part_int + 
+    date + samegoal + part_prob
+<environment: 0x0000000018f92960>
+
+Call:
+glm(formula = match ~ part_lik + go_out + part_att + age_part + 
+    imprelig + pref_part_att + pref_part_sin + part_fun + pref_part_int + 
+    date + samegoal + part_prob, family = binomial(link = "logit"), 
+    data = model_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2286  -0.6580  -0.4815  -0.2910   2.5879  
+
+Coefficients:
+               Estimate Std. Error z value Pr(>|z|)   
+(Intercept)    0.175614   0.295711   0.594  0.55260   
+part_lik      -0.239524   0.077752  -3.081  0.00207 **
+go_out        -0.226133   0.083628  -2.704  0.00685 **
+part_att      -0.148191   0.062827  -2.359  0.01834 * 
+age_part      -0.072517   0.033205  -2.184  0.02897 * 
+imprelig      -0.080255   0.032805  -2.446  0.01443 * 
+pref_part_att  0.021086   0.006535   3.226  0.00125 **
+pref_part_sin -0.027038   0.013954  -1.938  0.05266 . 
+part_fun      -0.127133   0.064595  -1.968  0.04905 * 
+pref_part_int -0.022774   0.012346  -1.845  0.06509 . 
+date           0.121798   0.065557   1.858  0.06318 . 
+samegoal1     -0.332534   0.190472  -1.746  0.08084 . 
+part_prob     -0.084420   0.054406  -1.552  0.12074   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1020.41  on 1129  degrees of freedom
+Residual deviance:  926.26  on 1117  degrees of freedom
+AIC: 952.26
+
+Number of Fisher Scoring iterations: 5
+

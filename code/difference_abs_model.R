@@ -23,50 +23,79 @@ source(MODEL_SCRIPT)
 
 # Output lm to a table
 
-important_result = list(
-    all_wave_complete_feature_M0 = result$M0,
-    all_waves_complete_feature_M1 =  result$M1, 
-    all_waves_compelte_feature_step = step_result$M1, 
-    all_waves_complete_feature_wave_effect_M0 =  result_wave$M0,
-    all_waves_complete_feature_wave_effect_M1 =  result_wave$M1,
-    all_waves_complete_feature_wave_effect_step =  step_result_wave$M1, 
-    all_waves_wave_effect_only = M_wave_effect,
-    no_first_wave_complete_feature =  no_first_wave_result$M1, 
-    no_first_wave_complete_feature_step =  no_first_wave_result_step$M1, 
-    no_first_wave_complete_feature_wave_effect = no_first_result_wave$M1,
-    no_first_wave_complete_wave_effect_step_M0 = no_first_result_wave_step$M0,
-    no_first_wave_complete_feature_wave_effect_step = no_first_result_wave_step$M1
-)
-
-
-
-
-regression.summary.output(important_result, OUTPUT_DIC, "major_regression_summary")
+M_wanted = fit.with.these.features(model_data_reduced, clean.up.sigificant.feature(extract.significant.feature(step_result$M1)))
 
 
 ## summary output
+library(stargazer)
+setwd(PARENT_DIC)
+setwd("..")
+ROOT_DIC = getwd()
+setwd(CUR_DIC)
+final_report_dic = paste(ROOT_DIC, "/Final report/final_report/", sep="")
 stargazer(result$M1, step_result$M1, type="text",
-          covariate.labels=c("Pref. of Attractiveness","Pref. of Intelligence",
-"Rate of Attractiveness","Pref. of Sincerity","Prob. of yes","Overall score", "Age", "Importance of religion", "Rate of Fun", "Date freq.", "Go out freq.", "same goal1"),
           single.row = TRUE,
           out = paste(OUTPUT_DIC, "complete_feature.txt"))
+# m complete
+stargazer(result$M1, step_result$M1, M_wanted,  
+          type="latex", 
+          single.row = TRUE,
+          covariate.labels=c("Preference of Attractiveness","Preference of Intelligence","Rate of Attractiveness","Probability of yes","Overall score", "Age", "Importance of religion", "Go out freq.", "Met no", "Same goal yes", "Date frequency", "Rating of fun", "Constant"), 
+          out = paste(final_report_dic, "contrast_m_complete.tex", sep="")
+)
 
+stargazer(anova(M_wanted, step_result$M1, test="Chisq"), type="text")
+
+
+
+# m wave effect
 stargazer(result_wave$M1, step_result_wave$M1, type="text", 
+          single.row=TRUE)
+stargazer(result_wave$M1, step_result_wave$M1, type="latex", 
           single.row=TRUE, 
-          out = paste(OUTPUT_DIC, "wave_fixed_effect.txt"))
-stargazer(no_first_result_wave$M1, no_first_result_wave_step$M1, type="text", 
-          single.row=TRUE, 
-          out = paste(OUTPUT_DIC, "no_wave_1_wave_fixed_effect.txt"))
+          covariate.labels=c("Rating of Attractiveness",
+                             "Date Frequency", 
+                             "Preference of Intelligence",
+                             "Preference of Attractiveness",
+                             "Probability of yes",
+                             "Overall score", "Age", "Importance of religion", 
+                             "Go out Frequency", "Wave2","Wave3", "Wave4", "Wave10", "Wave11",  "Wave15", "Wave16", "Wave17",  
+                             "Met no", "Same goal yes", "Rating of Fun", "Constant"), 
+          out = paste(final_report_dic, "contrast_m_complete_wave.tex", sep=""))
+
+same_goal_pairs = model_data_reduced[model_data_reduced$samegoal == 1, c("iid", "pid")]
+all_goals = model_data_no_na[, c("iid", "pid", "goal.iid", "goal.pid")]
+same_goals = merge(same_goal_pairs, all_goals, by = c("iid", "pid"), how="left")
+all(same_goals$goal.iid==same_goals$goal.pid)
+table(same_goals$goal.iid)
 
 stargazer(M_wave_effect, type="text", 
           single.row = TRUE, 
           out = paste(OUTPUT_DIC, "only_wave_efffect.txt"))
+stargazer(M_wave_effect, type="latex", 
+          single.row=TRUE, 
+          out=paste(final_report_dic, "only_wave_effect.tex", sep=""))
+
+
+## Individual effect 
+
+stargazer(result_ind_iid$M1, single.row = TRUE, 
+type="text")
+stargazer(result_ind_iid$M1, single.row=TRUE, 
+         type="latex", out=paste(final_report_dic, "contrast_ind_iid_ss.tex", sep=""))
+
 
 
 ## Check colineartiy 
-cor(model_data_reduced[, setdiff(complete_features, factor_features)])
-pairs(model_data_reduced[, setdiff(complete_features, factor_features)])
+all_numerical_variables = setdiff(complete_features, factor_features)
+all_num_var_data = model_data_reduced[, all_numerical_variables]
+colnames(all_num_var_data) = c("Pref. Attractive", "Pref. Sincere", "Pref. Intelligent", "Pref. Fun", "Pref. Ambition", "Pref. Shared Interest", "Rating Attractive", "Rating Sincere", "Rating Intelligence", "Rating Fun", "Rating Ambition", "Rating Shared Interest", "Overall Score", "Prob. to say yes", "Age", "Importance Race", "Importance Religion", "Date", "Go out")
+num_variable_corr = cor(all_num_var_data)
 
+require(ggplot2)
+require(reshape2)
+melted_corr = melt(num_variable_corr) 
+ggplot(data = melted_corr, aes(x = Var1, y = Var2, fill=value)) + geom_tile() + scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0, limit = c(-1,1))+ theme(axis.title.x=element_blank(),axis.title.y=element_blank(), axis.text.x = element_blank(), axis.text.y = element_text(size=10, face="bold"))
 
 ## Goodness of fit 
 # Model selection 
@@ -90,22 +119,23 @@ no_first_result_wave_step_r_squared = pR2(glm(as.formula(no_first_result_wave_st
 
 # Hosmer-lameshow test 
 library(MKmisc)
-HLgof.test(fit = fitted(step_result$M1), obs=model_data_reduced$match)
+HL_list = c(step_result$M1, step_result_wave$M1, no_first_wave_result_step$M1, no_first_result_wave_step$M1)
 
-# 
+step_result_test = HLgof.test(fit = fitted(step_result$M1), obs=model_data_reduced$match)
+step_result_wave_test = HLgof.test(fit = fitted(step_result_wave$M1), obs=model_data_reduced$match)
 
-# ROC curve 
-## No factor????
-formula_vec = paste("match ~", paste(setdiff(complete_features, factor_features), sep = "+"))
-#step_result_roc = roc(match ~ pref_part_att+pref_part_sin+pref_part_int+pref_part_fun+pref_part_amb+pref_part_sha+part_att+part_sin+part_int+part_fun+part_amb+part_sha+part_lik+part_prob+age_part+imprace+imprelig+date+go_out, data = model_data_reduced)
+p_values = c(step_result_test$H$p.value, step_result_wave_test$H$p.value, no_first_result_step_test$H$p.value, no_first_result_wave_step_test$H$p.value)
 
-for (vec in formula_vec){
-    this_roc = roc(as.formula(vec), data = model_data_reduced) 
-    print(this_roc)
-    plot(this_roc, main=vec)
-}
+HL_output = cbind(c("All variables", "All variables with wave", "No first wave all variables", "No first wave all variables with wave"), as.vector(p_values))
 
-
-
-
-
+# Plot ROC 
+library(plotROC)
+roc_plot_df = data.frame(match=model_data_reduced$match, p = step_result$M1$fitted.values)
+library(ggplot2)
+basic_plot = ggplot(roc_plot_df, aes(d=match, m=p)) + geom_roc(n.cuts = 10, labelsize = 3, labelround = 3)
+basic_plot
+basic_plot+style_roc()
+library(ROCR)
+pred = prediction(roc_plot_df$p, roc_plot_df$match)
+perf = performance(pred, measure="acc")
+plot(perf)

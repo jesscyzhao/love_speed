@@ -9,7 +9,7 @@ Major Script:
 code/difference_abs_model.r : contrast model 
 code/sum_model.r: teamwork model 
 
-Dependency: 
+Dependencies: 
 stargazer, 
 ggplot2, 
 plotROC, 

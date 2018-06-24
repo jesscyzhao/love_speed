@@ -1,2 +1,21 @@
-This is the first commit 
+AMS 204 Final Project
+
+Download the project, keeping the directory structure. 
+
+Set the working directory to where the project is saved.
+The scirpts should run since it is not path dependent.
+
+Major Script: 
+code/difference_abs_model.r : contrast model 
+code/sum_model.r: teamwork model 
+
+Dependencies: 
+stargazer, 
+ggplot2, 
+plotROC, 
+ROCR, 
+MKmisc, 
+pscl, 
+lmtest, 
+reshape2
 
